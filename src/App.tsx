@@ -1,11 +1,22 @@
-import Page from "./pages/Page";
+import Header from "./components/Header";
+import Hero from "./components/Hero/Hero";
+import Main from "./components/Main";
+import Navigation from "./components/Navigation/Navigation";
+import Page from "./components/Page";
+import Steps from "./components/Steps/Steps";
 
 function App() {
+  // Page is like a container or wrapper
   return (
-    <div className="font-bold text-blue-600">
-      Hello, world!
-      <Page />
-    </div>
+    <Page>
+      <Header>
+        <Navigation />
+        <Hero />
+      </Header>
+      <Main>
+        <Steps />
+      </Main>
+    </Page>
   );
 }
 
