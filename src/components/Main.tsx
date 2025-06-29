@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 
 interface MainProps {
-  children: ReactElement;
+  children: ReactElement[];
 }
 
 function Main({ children }: MainProps) {
