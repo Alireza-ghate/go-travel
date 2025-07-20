@@ -1,21 +1,51 @@
 import { useState, MouseEvent } from "react";
 import Checkmark from "./Icons/Checkmark";
+import { useFormAndValidation } from "../Hooks/useFormAndValidation";
+import { AnimatePresence, motion } from "motion/react";
+
+interface FormState {
+  currentState: "idle" | "pending" | "success" | "error";
+  errorMessage: string | null;
+}
+const buttonStateClasses = {
+  idle: "bg-primary-700 opacity-100",
+  pending: "bg-primary-700 opacity-50",
+  success: "bg-green opacity-100",
+  error: "bg-red opacity-100",
+};
 
 function FrequentTraveler() {
+  const [formState, setFormState] = useState<FormState>({
+    currentState: "idle",
+    errorMessage: null, //there is no error in the begining
+  });
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
-  // better way of form submitting:
+  // better way of form submitting: [onSubmit on form]
   // function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   //   event.preventDefault();
   //   console.log("form submitted");
   // }
 
+  const { errors, handleChange, isValid, resetForm, values } =
+    useFormAndValidation({
+      fullName: "",
+      emailAddress: "",
+    });
+
   function handleSubmit(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    if (isChecked) {
+    if (isChecked && isValid) {
       //submit the form!
+      setFormState({ currentState: "success", errorMessage: null });
+      // after 1.5s formState goes back to "idle"
+      setTimeout(
+        () => setFormState({ currentState: "idle", errorMessage: null }),
+        1500,
+      );
+
+      resetForm();
     }
-    console.log("form submitted by click on btn");
   }
 
   return (
@@ -40,27 +70,64 @@ function FrequentTraveler() {
               Full Name
             </p>
             <input
+              value={values.fullName}
+              onChange={handleChange}
               minLength={2}
               maxLength={50}
               name="fullName"
               required
               placeholder="Jane Doe"
-              className="placeholder:tracking-6 placeholder:text-grey-400 w-full rounded-lg bg-white py-3.5 pl-4 transition-all duration-200 placeholder:font-light focus:outline-1 disabled:opacity-50"
+              className={`${errors.fullName && "outline-red outline-2"} placeholder:tracking-6 placeholder:text-grey-400 w-full rounded-lg bg-white py-3.5 pl-4 transition-all duration-200 placeholder:font-light focus:outline-1 disabled:opacity-50`}
               type="text"
             />
+            {/* for rendering the errors messages */}
+            <AnimatePresence>
+              {errors.fullName && (
+                <motion.p
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{
+                    opacity: 1,
+                    height: "auto",
+                  }}
+                  exit={{ opacity: 0, height: 0 }} //when el goes off the screen play the exit animation
+                  transition={{ duration: 0.15 }}
+                  className="text-red pt-1 pl-0.5 text-sm"
+                >
+                  {errors.fullName}
+                </motion.p>
+              )}
+            </AnimatePresence>
           </label>
 
           <label className="mb-12">
             <p className="tracking-6 mb-3 text-lg/9.5 font-semibold">Email</p>
             <input
+              value={values.emailAddress}
+              onChange={handleChange}
               minLength={3}
               maxLength={50}
               name="emailAddress"
               required
               placeholder="janedoe@gmail.com"
-              className="placeholder:tracking-6 placeholder:text-grey-400 w-full rounded-lg bg-white py-3.5 pl-4 transition-all duration-200 placeholder:font-light focus:outline-1 disabled:opacity-50"
+              className={`${errors.emailAddress && "outline-red outline-2"} placeholder:tracking-6 placeholder:text-grey-400 w-full rounded-lg bg-white py-3.5 pl-4 transition-all duration-200 placeholder:font-light focus:outline-1 disabled:opacity-50`}
               type="email"
             />
+            <AnimatePresence>
+              {errors.emailAddress && (
+                <motion.p
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{
+                    opacity: 1,
+                    height: "auto",
+                  }}
+                  exit={{ opacity: 0, height: 0 }} //when el goes off the screen play the exit animation
+                  transition={{ duration: 0.15 }}
+                  className="text-red pt-1 pl-0.5 text-sm"
+                >
+                  {errors.emailAddress}
+                </motion.p>
+              )}
+            </AnimatePresence>
           </label>
 
           <div className="flex flex-wrap items-center justify-between gap-8">
@@ -79,11 +146,15 @@ function FrequentTraveler() {
               </p>
             </label>
             <button
+              disabled={formState.currentState !== "idle"}
               onClick={handleSubmit}
               type="submit"
-              className="bg-primary-700 hover:bg-primary-800 cursor-pointer rounded-[0.625rem] px-8 py-3.5 text-base font-medium text-white transition-all duration-200 disabled:cursor-not-allowed"
+              className={`enabled:hover:bg-primary-800 cursor-pointer rounded-[0.625rem] px-8 py-3.5 text-base font-medium text-white transition-all duration-200 disabled:cursor-not-allowed ${buttonStateClasses[formState.currentState]}`}
             >
-              Learn More
+              {formState.currentState === "idle" && "Learn More"}
+              {formState.currentState === "pending" && "Submitting..."}
+              {formState.currentState === "success" && "Success!"}
+              {formState.currentState === "error" && "Submission Failed"}
             </button>
           </div>
         </form>
