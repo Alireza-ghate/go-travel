@@ -8,6 +8,7 @@ import News from "./components/News/News";
 import Page from "./components/Page";
 import Services from "./components/Services/Services";
 import Steps from "./components/Steps/Steps";
+import Testimonials from "./components/Testimonials/Testimonials";
 
 function App() {
   // Page is like a container or wrapper
@@ -23,6 +24,7 @@ function App() {
         <News />
         <ExploreMore />
         <FrequentTraveler />
+        <Testimonials />
       </Main>
     </Page>
   );
