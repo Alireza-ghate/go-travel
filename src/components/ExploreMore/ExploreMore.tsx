@@ -24,7 +24,7 @@ function ExploreMore() {
   }
 
   return (
-    <section className="px-24">
+    <section id="ExploreMore" className="px-24">
       <div className="mx-auto max-w-389 space-y-33 py-26">
         <div className="flex items-end justify-between">
           <div className="tracking-6">
