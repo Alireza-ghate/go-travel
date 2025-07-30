@@ -10,6 +10,8 @@ const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 //create functions for fetching data from our tables in supabase using this supabase client
 export async function getBlogPost() {
   const { data, error } = await supabase.from("BlogPosts").select("*");
+  // throw error manually
+  // throw new Error("something went wrong...");
 
   // handled by react query
   if (error)

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { type BlogPost } from "../../utils/contentTypes";
+import formatDate from "../../utils/formatDate";
 
 interface BlogPostProps {
   post: BlogPost;
@@ -24,7 +25,9 @@ function BlogPost({ post: { alt, date, img, summary, title } }: BlogPostProps) {
         />
       </div>
       <div className="tracking-6 my-7 mr-11 max-w-195">
-        <p className="text-grey-900 mb-4.5 text-xl font-medium">{date}</p>
+        <p className="text-grey-900 mb-4.5 text-xl font-medium">
+          {formatDate(date)}
+        </p>
         <h4 className="mb-6 text-[2.75rem] font-medium">{title}</h4>
         <p className="text-grey-800 mb-6 text-lg/13.5 font-normal">{summary}</p>
         <button className="bg-primary-700 hover:bg-primary-800 cursor-pointer rounded-[.625rem] px-8 py-3.5 text-lg font-medium text-white transition-colors duration-200">
