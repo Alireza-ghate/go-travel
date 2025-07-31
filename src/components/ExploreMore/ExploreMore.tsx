@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { locations } from "../../utils/content";
 import CaretUp from "../Icons/CaretUp";
 import LocationCard from "./LocationCard";
 import { LOCATION_CARDS_SHOWN } from "../../utils/constans";
+import useQueryLocations from "../../Hooks/useQueryLocations";
+import Error from "../Error";
+import Loader from "../Loader";
 
 function ExploreMore() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   // const renderLocations = locations.slice(0, 6); //always first 6 elements will be render (hardcore code)
   // make it dynamic
-  const renderLocations = locations.slice(
+  const { error, isLoading, locations } = useQueryLocations();
+  const renderLocations = locations?.slice(
     currentIndex,
     currentIndex + LOCATION_CARDS_SHOWN,
   );
-  const totalLocations = locations.length;
+  const totalLocations = locations?.length ?? 0; // set default value to 0 to avoid being undefined
 
   function handleRightClick() {
     setCurrentIndex((prevIndex) => prevIndex + LOCATION_CARDS_SHOWN);
@@ -52,12 +55,22 @@ function ExploreMore() {
             </button>
           </div>
         </div>
+        {/* success state */}
+        {!error && !isLoading && (
+          <ul className="grid grid-cols-3 gap-x-29 gap-y-24">
+            {renderLocations?.map((location) => (
+              <LocationCard key={location.id} location={location} />
+            ))}
+          </ul>
+        )}
 
-        <ul className="grid grid-cols-3 gap-x-29 gap-y-24">
-          {renderLocations.map((location) => (
-            <LocationCard key={location.id} location={location} />
-          ))}
-        </ul>
+        {/* error state */}
+        {error && !isLoading && (
+          <Error>Something went wrong while loading locations!</Error>
+        )}
+
+        {/* loading state */}
+        {isLoading && !error && <Loader />}
       </div>
     </section>
   );

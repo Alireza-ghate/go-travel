@@ -5,7 +5,6 @@ import BlogPost from "./BlogPost";
 
 function News() {
   const { blogPosts, error, isLoading } = useQueryBlogPosts();
-  console.log(error, isLoading);
 
   return (
     <section className="px-24 py-36">

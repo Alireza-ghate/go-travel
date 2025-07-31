@@ -1,5 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
-import { BlogPost } from "../utils/contentTypes";
+import { BlogPost, Location } from "../utils/contentTypes";
 import { Database } from "./Database";
 
 const supabaseUrl = "https://fnkzsitgfwelmhqqgqqb.supabase.co";
@@ -47,4 +47,28 @@ export async function getBlogPost() {
   });
 
   return blogPosts;
+}
+
+export async function getLocations() {
+  const { data, error } = await supabase.from("Locations").select("*");
+  // throw new Error("");
+
+  if (error)
+    throw new Error(
+      `ERROR: database returned error when fetching locations ${error.message}`,
+    );
+
+  const locations: Location[] = data.map((location) => {
+    return {
+      id: location.id,
+      img: location.img_url,
+      alt: location.img_alt,
+      location: location.location,
+      pricePerPerson: location.price_per_person,
+      rating: location.rating,
+      title: location.title,
+    };
+  });
+
+  return locations;
 }

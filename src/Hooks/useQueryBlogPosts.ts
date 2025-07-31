@@ -3,7 +3,7 @@ import { getBlogPost } from "../api/api";
 
 function useQueryBlogPosts() {
   const {
-    data: blogPosts,
+    data: blogPosts = [],
     error,
     isLoading,
   } = useQuery({
