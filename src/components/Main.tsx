@@ -4,8 +4,6 @@ interface MainProps {
   children: ReactElement[];
 }
 
-function Main({ children }: MainProps) {
-  return <main>{children}</main>;
+export default function Main(props: MainProps) {
+  return <main>{props.children}</main>;
 }
-
-export default Main;

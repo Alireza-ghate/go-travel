@@ -1,11 +1,11 @@
-import { type ReactElement } from "react";
+import { ReactElement } from "react";
 
 interface PageProps {
   children: ReactElement[];
 }
 
-function Page({ children }: PageProps) {
-  return <div className="text-grey-1000">{children}</div>;
+function Page(props: PageProps) {
+  return <div>{props.children}</div>;
 }
 
 export default Page;
