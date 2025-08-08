@@ -1,5 +1,3 @@
-import { navigationLinks } from "../../utils/content";
-
 import LogoIcon from "../Icons/LogoIcon.tsx";
 import SearchIcon from "../Icons/SearchIcon.tsx";
 import CaretUp from "../Icons/CaretUp.tsx";
@@ -7,6 +5,7 @@ import BellIcon from "../Icons/BellIcon.tsx";
 
 import DesktopDropdown from "./DesktopDropdown.tsx";
 import Hamburger from "../Icons/Hamburger.tsx";
+import { navigationLinks } from "../../utils/content.ts";
 
 export default function Navigation() {
   return (

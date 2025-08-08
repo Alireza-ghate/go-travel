@@ -3,7 +3,7 @@ import Checkmark from "./Icons/Checkmark";
 import { useFormAndValidation } from "../Hooks/useFormAndValidation";
 import { AnimatePresence, motion } from "motion/react";
 import useInsertLead from "../Hooks/useInsertLead";
-import { FORM_STATE_DURATION } from "../utils/constans";
+import { FORM_STATE_DURATION } from "../utils/constants";
 
 interface FormState {
   currentState: "idle" | "pending" | "success" | "error";
