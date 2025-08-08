@@ -37,7 +37,7 @@ export default function ExploreMore() {
           </div>
           <div className="max-3xl:mb-1.5 max-3xl:gap-x-5 mb-2 flex gap-x-6 max-2xl:gap-x-4 max-xl:mb-0.5 max-sm:gap-x-3">
             <button
-              className="bg-grey-300 not-disabled:hover:bg-grey-400 flex size-18 cursor-pointer place-content-center rounded-full transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 max-2xl:size-17 max-xl:size-16 max-sm:size-15"
+              className="bg-grey-300 not-disabled:hover:bg-grey-400 flexv size-18 cursor-pointer items-center justify-items-center rounded-full transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 max-2xl:size-17 max-xl:size-16 max-sm:size-15"
               aria-label="arrow left"
               onClick={handleLeftClick}
               disabled={currIndex === 0}
@@ -45,7 +45,7 @@ export default function ExploreMore() {
               <CaretUp className="w-6 -rotate-90 fill-white" />
             </button>
             <button
-              className="bg-primary-700 not-disabled:hover:bg-primary-800 flex size-18 cursor-pointer place-content-center rounded-full transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 max-2xl:size-17 max-xl:size-16 max-sm:size-15"
+              className="bg-primary-700 not-disabled:hover:bg-primary-800 flexv size-18 cursor-pointer items-center justify-items-center rounded-full transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 max-2xl:size-17 max-xl:size-16 max-sm:size-15"
               aria-label="arrow right"
               onClick={handleRightClick}
               disabled={currIndex >= totalLocations - 6}
