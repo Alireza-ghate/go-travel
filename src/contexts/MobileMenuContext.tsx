@@ -23,7 +23,7 @@ const MenuContext = createContext<ContextValueShape>({
 
 export default function MenuContextProvider({ children }: Props) {
   // to keep track menu is open or not
-  const [menuOpened, setMenuOpened] = useState<boolean>(true);
+  const [menuOpened, setMenuOpened] = useState<boolean>(false);
 
   return (
     <MenuContext.Provider value={{ menuOpened, setMenuOpened }}>
