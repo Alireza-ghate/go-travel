@@ -1,7 +1,8 @@
 import BlogPost from "./BlogPost";
-import useQueryBlogPosts from "../../hooks/useQueryBlogPosts";
+
 import Loader from "../Loader";
 import Error from "../Error";
+import useQueryBlogPosts from "../../Hooks/useQueryBlogPosts";
 
 export default function News() {
   const { blogPosts, error, isLoading } = useQueryBlogPosts();
