@@ -11,10 +11,11 @@ import { useMenuContext } from "../../contexts/MobileMenuContext";
 function MobileMenu() {
   const [activeLinkId, setActiveLinkId] = useState<number>(-1); //-1 means unset
   const { menuOpened, setMenuOpened } = useMenuContext();
+  console.log(menuOpened, activeLinkId);
   return (
     // div === overlay---- position= fixed => fixed relative to viewport width
     <motion.div
-      onClick={() => setMenuOpened(false)}
+      onClick={() => setMenuOpened(false)} //for stop closing menu when user clicks on any links in nav, we use stopPropagtion()
       animate={menuOpened ? "visible" : "hidden"}
       variants={{
         hidden: {
@@ -68,19 +69,28 @@ function MobileMenu() {
         >
           {navigationLinks.map((link) => (
             <li
-              onClick={() =>
-                setActiveLinkId(activeLinkId === link.id ? -1 : link.id)
-              }
+              onClick={(e) => {
+                e.stopPropagation(); ////when we click on any link inside NAV el, onClick event bubbles up and also happens on div opverlay
+                setActiveLinkId(activeLinkId === link.id ? -1 : link.id);
+              }}
               className={`group relative flex flex-col text-base font-medium ${activeLinkId === link.id ? "gap-y-6" : "gap-y-0"} transition-all duration-300 ease-in-out`}
               key={link.id}
             >
               <div className="flex cursor-pointer items-center gap-x-1.75">
-                <a
-                  className={`${activeLinkId === link.id ? "text-black" : "text-grey-600"}`}
-                  href={`${link.dropdown ? "#" : link.href}`}
-                >
-                  {link.text}
-                </a>
+                {link.dropdown ? (
+                  <button
+                    className={`${activeLinkId === link.id ? "text-black" : "text-grey-600"} cursor-pointer`}
+                  >
+                    {link.text}
+                  </button>
+                ) : (
+                  <a
+                    className={`${activeLinkId === link.id ? "text-black" : "text-grey-600"}`}
+                    href={link.href}
+                  >
+                    {link.text}
+                  </a>
+                )}
                 {link.dropdown && (
                   <span
                     className={`${activeLinkId === link.id && link.dropdown && "rotate-180"} flex size-6 items-center justify-center transition-all duration-200`}
