@@ -18,7 +18,17 @@ import MenuContextProvider from "./contexts/MobileMenuContext";
 // Create a client
 const queryClient = new QueryClient();
 
+// google analytics
+import { initGoogleAnalytics, logPageView } from "./analytics";
+import { useEffect } from "react";
+
 function App() {
+  // whenever our app render for first time (first mount), call these functions within useeffect
+  useEffect(() => {
+    // these all are sideefects
+    initGoogleAnalytics(); //initialze google analytics
+    logPageView(); //creates page_view event to count how many times our website get visited
+  }, []);
   // Page is like a container or wrapper
   return (
     // Provide the client to App

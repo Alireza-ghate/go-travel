@@ -4,6 +4,7 @@ import { useFormAndValidation } from "../Hooks/useFormAndValidation";
 import { AnimatePresence, motion } from "motion/react";
 import useInsertLead from "../Hooks/useInsertLead";
 import { FORM_STATE_DURATION } from "../utils/constants";
+import { logCustomEvent } from "../analytics";
 
 interface FormState {
   currentState: "idle" | "pending" | "success" | "error";
@@ -66,6 +67,8 @@ function FrequentTraveler() {
       () => setFormState({ currentState: "idle", errorMessage: null }),
       FORM_STATE_DURATION,
     );
+
+    logFormSubmit("null");
   }
 
   function handleError(error: Error) {
@@ -75,6 +78,21 @@ function FrequentTraveler() {
       () => setFormState({ currentState: "idle", errorMessage: null }),
       FORM_STATE_DURATION,
     );
+
+    logFormSubmit(`Form submission error with message - ${error.message}`);
+  }
+
+  //google analytics
+  // whenever form successfully or unsuccessfully get submitted, this fn will be called
+  function logFormSubmit(error: string = "") {
+    logCustomEvent({
+      category: "user_engagment",
+      action: "form_submit",
+      eventName: "frequent_travelers_form_submit",
+      customProps: {
+        errorMessage: error, // default is ""
+      },
+    });
   }
 
   return (
