@@ -11,7 +11,7 @@ import { useMenuContext } from "../../contexts/MobileMenuContext";
 function MobileMenu() {
   const [activeLinkId, setActiveLinkId] = useState<number>(-1); //-1 means unset
   const { menuOpened, setMenuOpened } = useMenuContext();
-  console.log(menuOpened, activeLinkId);
+
   return (
     // div === overlay---- position= fixed => fixed relative to viewport width
     <motion.div
