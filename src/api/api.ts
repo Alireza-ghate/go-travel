@@ -3,7 +3,7 @@ import { BlogPost, Lead, Location } from "../utils/contentTypes";
 import { Database } from "./Database";
 
 // CREATE SUPABASE CLIENT
-const supabaseUrl = "https://fnkzsitgfwelmhqqgqqb.supabase.co";
+const supabaseUrl = "https://uerjejrtlrvvircnigxc.supabase.co";
 const supabaseKey = import.meta.env.VITE_SUPABASE_API_KEY;
 const supabase = createClient<Database>(supabaseUrl, supabaseKey);
 
