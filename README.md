@@ -64,14 +64,14 @@ https://go-travel-9eg6.vercel.app/
 
 ### This project was built to practice and improve skills in:
 
-React Application Development
-TypeScript
-Responsive Web Design
-Component-Based Architecture
-Modern UI Development
-Frontend Performance Optimization
-API Integration with Supabase
-State and Server Data Management
+- React Application Development
+- TypeScript
+- Responsive Web Design
+- Component-Based Architecture
+- Modern UI Development
+- Frontend Performance Optimization
+- API Integration with Supabase
+- State and Server Data Management
 
 ## 👨‍💻 Author
 
